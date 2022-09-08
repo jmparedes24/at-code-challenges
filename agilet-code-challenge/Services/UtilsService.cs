@@ -17,6 +17,9 @@ namespace agilet_code_challenge.Services
                 string errorMessage;
                 if (!AreValidParameters(names, order, out errorMessage))
                     throw new Exception(errorMessage);
+
+                var sortedArray = GetSortedArray(names, order);
+                response.Data = sortedArray;
             }
             catch (Exception ex)
             {
@@ -25,6 +28,20 @@ namespace agilet_code_challenge.Services
             }
 
             return response;
+        }
+
+        private string[] GetSortedArray(string[] names, string[] order)
+        {
+            string[] result = new string[names.Length];
+
+            for (int i = 0; i < order.Length; i++)
+            {
+                int position = 0;
+                int.TryParse(order[i], out position);
+                result[i] = names[position - 1];
+            }
+
+            return result;
         }
 
         /// <summary>
