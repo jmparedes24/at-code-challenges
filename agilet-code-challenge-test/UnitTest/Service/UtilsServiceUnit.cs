@@ -84,7 +84,7 @@ namespace agilet_code_challenge_test.UnitTest.Service
 
             //Arrange
             Assert.False(result.Success);
-            Assert.True(result.Message.Contains("Names can not be order because different lengths between names and order"));
+            Assert.True(result.Message.Contains(Consts.ERROR_DIFFERENT_LENGTH));
         }
 
         [Test]
@@ -100,6 +100,20 @@ namespace agilet_code_challenge_test.UnitTest.Service
             //Arrange
             Assert.False(result.Success);
             Assert.True(result.Message.Contains(Consts.ERROR_NAMES_EMPTY));
+        }
+        [Test]
+        public void OrganizedArray_Error_When_Order_Is_Not_Provide()
+        {
+            //Arrange             
+            var names = new string[] { "Sonia", "Maria", "Wood", "Dempster" };
+            var order = new string[] { };
+
+            //Act
+            var result = _service.OrganizedArray(names, order);
+
+            //Arrange
+            Assert.False(result.Success);
+            Assert.True(result.Message.Contains(Consts.ERROR_ORDER_EMPTY));
         }
 
         /// <summary>
